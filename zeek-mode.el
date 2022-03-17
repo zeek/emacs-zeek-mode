@@ -147,6 +147,12 @@ reflected in the parse tree."
     (interactive)
     (zeek-command-on-buffer (zeek-script-cmd "parse" "-") "*zeek-script parse tree*"))
 
+  (defun zeek-format-before-save ()
+    "Add this to .emacs to run zeek-format on the current buffer when saving:
+\(add-hook 'before-save-hook #'zeek-format-before-save)"
+    (interactive)
+    (when (eq major-mode 'zeek-mode) (zeek-format-buffer)))
+
   (add-hook 'zeek-mode-hook
             (lambda ()
               (local-set-key (kbd "C-c C-f") 'zeek-format-buffer)
