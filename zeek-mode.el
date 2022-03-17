@@ -75,7 +75,7 @@
 ;; ---- Zeek script formatting and parsing via "zeek-script" -----------
 ;;
 ;; This requires the zeekscript Python package, see here for details:
-;; https://github.com/ckreibich/zeekscript
+;; https://github.com/zeek/zeekscript
 
 (defvar zeek-script
   (executable-find "zeek-script")
