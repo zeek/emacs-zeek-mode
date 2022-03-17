@@ -164,6 +164,10 @@ reflected in the parse tree."
             (setq whitespace-style '(face space-after-tab))
             ))
 
+;; The update-changes script maintains this version number; do not edit.
+(defconst zeek-mode-version "1.0.0"
+  "The current version of Zeek mode.")
+
 (defun zeek-mode ()
   "Major mode for editing Zeek scripts"
   (interactive)
