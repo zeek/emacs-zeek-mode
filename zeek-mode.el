@@ -180,6 +180,7 @@ reflected in the parse tree."
   (kill-all-local-variables)
   (set-syntax-table zeek-mode-syntax-table)
   (set (make-local-variable 'font-lock-defaults) '(zeek-mode-keywords))
+  (set (make-local-variable 'comment-start) "#")
 
   (setq indent-tabs-mode t)
   (setq c-basic-offset 8)
