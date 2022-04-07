@@ -132,7 +132,7 @@ upon return, but the keep-errbuf argument, when t, preserves it."
       ;; after any whitespace.) The search leaves point at the end of the search
       ;; result, i.e. where we want to be.
       (goto-char (point-min))
-      (re-search-forward "[ \t\r\n]*[^ \t\r\n][ \t\r\n]*" nil nil numchars)
+      (re-search-forward "[ \t\r\n]*[^ \t\r\n][ \t\r\n]*" nil t numchars)
 
       ;; Point is now correct, but we may have scrolled the window.  Re-scroll
       ;; so point is back on the same number of lines down from the top of the
