@@ -90,7 +90,7 @@ zeek-script command is in your PATH.")
     "Returns full zeek-script invocation string for the given arguments."
     (mapconcat 'identity (cons zeek-script args) " "))
 
-  (defun zeek-command-on-buffer (command destination &optional replace keep-errbuf)
+  (defun zeek-command-on-buffer (command destination &optional buf replace keep-errbuf)
     "Run a command on the buffer and report errors to echo area.
 
 This is a wrapper around shell-command-on-region, with a subset
@@ -100,10 +100,14 @@ to the echo area. By default the buffer is temporary and killed
 upon return, but the keep-errbuf argument, when t, preserves it."
     (let ((errbuf "*zeek-script errors*"))
 
+      (if (not buf)
+          (setq buf (current-buffer)))
+
       ;; Run the given command on the buffer, plugging in stdout and stderr
       ;; destination buffers.
-      (shell-command-on-region (point-min) (point-max)
-                               command destination replace errbuf)
+      (with-current-buffer buf
+        (shell-command-on-region (point-min) (point-max)
+                                 command destination replace errbuf))
 
       (when (get-buffer errbuf)
         (with-current-buffer errbuf
@@ -124,7 +128,7 @@ upon return, but the keep-errbuf argument, when t, preserves it."
           (toplines (count-lines (window-start) (point))))
 
       ;; Format the whole buffer, replacing its content.
-      (zeek-command-on-buffer (zeek-script-cmd "format" "-") (current-buffer) t t)
+      (zeek-command-on-buffer (zeek-script-cmd "format" "-") (current-buffer) nil t t)
 
       ;; Put point back to "same" spot: search for "numchars" instances of
       ;; optional whitespace, a single non-whitespace, plus optional
@@ -140,6 +144,13 @@ upon return, but the keep-errbuf argument, when t, preserves it."
       (recenter-top-bottom toplines)))
 
   (defun zeek-parse-buffer ()
+    "Parse buffer via `zeek-script parse' and report any errors in the echo area."
+    (interactive)
+    (let ((buf (current-buffer)))
+      (with-temp-buffer
+        (zeek-command-on-buffer (zeek-script-cmd "parse" "-" ">/dev/null") (current-buffer) buf))))
+
+  (defun zeek-show-buffer-parsetree ()
     "Report parse tree via `zeek-script parse' in a new buffer.
 
 Potential parsing problems appear in the echo area and are
@@ -156,7 +167,8 @@ reflected in the parse tree."
   (add-hook 'zeek-mode-hook
             (lambda ()
               (local-set-key (kbd "C-c C-f") 'zeek-format-buffer)
-              (local-set-key (kbd "C-c C-p") 'zeek-parse-buffer))))
+              (local-set-key (kbd "C-c C-p") 'zeek-parse-buffer)
+              (local-set-key (kbd "C-c C-t") 'zeek-show-buffer-parsetree))))
 
 ;; ---- Main definitions -----------------------------------------------
 
