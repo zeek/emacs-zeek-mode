@@ -145,7 +145,10 @@ upon return, but the keep-errbuf argument, when t, preserves it."
 Potential parsing problems appear in the echo area and are
 reflected in the parse tree."
     (interactive)
-    (zeek-command-on-buffer (zeek-script-cmd "parse" "-") "*zeek-script parse tree*"))
+    (let ((outbuf "*zeek-script parse tree*"))
+      (zeek-command-on-buffer (zeek-script-cmd "parse" "-") outbuf)
+      (switch-to-buffer-other-window outbuf)
+      (special-mode)))
 
   (defun zeek-format-before-save ()
     "Add this to .emacs to run zeek-format on the current buffer when saving:
