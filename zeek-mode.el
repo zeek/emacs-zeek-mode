@@ -100,6 +100,9 @@ to the echo area. By default the buffer is temporary and killed
 upon return, but the keep-errbuf argument, when t, preserves it."
     (let ((errbuf "*zeek-script errors*"))
 
+      (when (get-buffer errbuf)
+        (kill-buffer errbuf))
+
       ;; Run the given command on the buffer, plugging in stdout and stderr
       ;; destination buffers.
       (shell-command-on-region (point-min) (point-max)
