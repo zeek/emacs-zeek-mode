@@ -22,7 +22,7 @@
 ;; ---- Syntax Highlighting --------------------------------------------
 
 (defvar zeek-mode-keywords
-  `(("\\(@[^#\n]+\\)" (0 font-lock-doc-face t))
+  `(("\\(@[^#\n]+\\)" (0 font-lock-preprocessor-face t))
     (,(concat "\\<"
 	      (regexp-opt '("const" "option" "redef") t)
 	      "\\>") (0 font-lock-constant-face))
