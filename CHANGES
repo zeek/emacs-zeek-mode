@@ -1,3 +1,17 @@
+1.0.0-11 | 2022-05-31 11:02:32 -0700
+
+  * Switch font for highlighting directives to font-lock-preprocessor-face (Christian Kreibich, Corelight)
+
+  * Fix coloring of directives with quotation marks (Christian Kreibich, Corelight)
+
+  * Use special-mode for new window resulting from zeek-parse-buffer (Christian Kreibich, Corelight)
+
+  * Avoid using stale error buffer around when running commands (Christian Kreibich, Corelight)
+
+  * Suppress errors when the character search regex fails post-formatting (Christian Kreibich, Corelight)
+
+  * Set comment character to '#' so comment-region works (Tim Wojtulewicz, Corelight)
+
 1.0.0-2 | 2022-03-17 16:18:27 -0700
 
   * Add zeek-format-before-save; update README (Yacin Nadji, Corelight)

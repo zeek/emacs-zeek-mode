@@ -22,7 +22,7 @@
 ;; ---- Syntax Highlighting --------------------------------------------
 
 (defvar zeek-mode-keywords
-  `(("\\(@[^#\n]+\\)" (0 font-lock-doc-face t))
+  `(("\\(@[^#\n]+\\)" (0 font-lock-preprocessor-face t))
     (,(concat "\\<"
 	      (regexp-opt '("const" "option" "redef") t)
 	      "\\>") (0 font-lock-constant-face))
@@ -177,7 +177,7 @@ reflected in the parse tree."
             ))
 
 ;; The update-changes script maintains this version number; do not edit.
-(defconst zeek-mode-version "1.0.0-2"
+(defconst zeek-mode-version "1.0.0-11"
   "The current version of Zeek mode.")
 
 (defun zeek-mode ()
