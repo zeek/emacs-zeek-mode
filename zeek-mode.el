@@ -130,6 +130,7 @@ upon return, but the keep-errbuf argument, when t, preserves it."
           (message (string-trim (thing-at-point 'line))))
         (unless keep-errbuf (kill-buffer errbuf)))))
 
+  ;;;###autoload
   (defun zeek-format-buffer ()
     "Format the current buffer using `zeek-script format'."
     (interactive)
@@ -158,6 +159,7 @@ upon return, but the keep-errbuf argument, when t, preserves it."
       ;; window that it was before formatting.
       (recenter-top-bottom toplines)))
 
+  ;;;###autoload
   (defun zeek-parse-buffer ()
     "Report parse tree via `zeek-script parse' in a new buffer.
 
@@ -169,6 +171,7 @@ reflected in the parse tree."
       (switch-to-buffer-other-window outbuf)
       (special-mode)))
 
+  ;;;###autoload
   (defun zeek-format-before-save ()
     "Add this to .emacs to run zeek-format on the current buffer when saving:
 \(add-hook \\='before-save-hook #\\='zeek-format-before-save)"
@@ -177,8 +180,8 @@ reflected in the parse tree."
 
   (add-hook 'zeek-mode-hook
             (lambda ()
-              (local-set-key (kbd "C-c C-f") 'zeek-format-buffer)
-              (local-set-key (kbd "C-c C-p") 'zeek-parse-buffer))))
+              (local-set-key (kbd "C-c C-f") #'zeek-format-buffer)
+              (local-set-key (kbd "C-c C-p") #'zeek-parse-buffer))))
 
 ;; ---- Main definitions -----------------------------------------------
 
