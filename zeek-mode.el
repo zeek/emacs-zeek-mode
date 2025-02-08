@@ -171,7 +171,7 @@ reflected in the parse tree."
 
   (defun zeek-format-before-save ()
     "Add this to .emacs to run zeek-format on the current buffer when saving:
-\(add-hook 'before-save-hook #'zeek-format-before-save)"
+\(add-hook \\='before-save-hook #\\='zeek-format-before-save)"
     (interactive)
     (when (eq major-mode 'zeek-mode) (zeek-format-buffer)))
 
