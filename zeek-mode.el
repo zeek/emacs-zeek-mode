@@ -205,7 +205,6 @@ reflected in the parse tree."
   (set (make-local-variable 'comment-start) "#")
 
   (setq indent-tabs-mode t)
-  (setq c-basic-offset 8)
   (setq tab-width 8)
   (local-set-key (kbd "TAB") 'self-insert-command)
 
