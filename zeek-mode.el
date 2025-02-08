@@ -100,20 +100,21 @@
 If nil, please install the zeekscript Python package and ensure its
 `zeek-script' command is in your PATH.")
 
-(when zeek-script
+(defun zeek--script-cmd (&rest args)
+  "Return the full `zeek-script' invocation string for the given ARGS."
+  (when zeek-script
+    (mapconcat 'identity (cons zeek-script args) " ")))
 
-  (defun zeek--script-cmd (&rest args)
-    "Returns full zeek-script invocation string for the given arguments."
-    (mapconcat 'identity (cons zeek-script args) " "))
+(defun zeek--command-on-buffer (command destination &optional replace keep-errbuf)
+  "Run a COMMAND on the buffer and report errors to buffer in DESTINATION.
 
-  (defun zeek--command-on-buffer (command destination &optional replace keep-errbuf)
-    "Run a command on the buffer and report errors to echo area.
-
-This is a wrapper around shell-command-on-region, with a subset
-of its arguments. The stderr stream of the command ends up in
+This is a wrapper around `shell-command-on-region', with a subset
+of its arguments.  The stderr stream of the command ends up in
 buffer *zeek command errors* and its first line gets reported
-to the echo area. By default the buffer is temporary and killed
-upon return, but the keep-errbuf argument, when t, preserves it."
+to the echo area.  By default the buffer is temporary and killed
+upon return, but the KEEP-ERRBUF argument, when t, preserves it.  REPLACE
+causes the buffer to be removed and replaced if it already exists."
+  (when zeek-script
     (let ((errbuf "*zeek-script errors*"))
 
       (when (get-buffer errbuf)
@@ -128,12 +129,13 @@ upon return, but the keep-errbuf argument, when t, preserves it."
         (with-current-buffer errbuf
           (goto-char (point-min))
           (message (string-trim (thing-at-point 'line))))
-        (unless keep-errbuf (kill-buffer errbuf)))))
+        (unless keep-errbuf (kill-buffer errbuf))))))
 
   ;;;###autoload
-  (defun zeek-format-buffer ()
-    "Format the current buffer using `zeek-script format'."
-    (interactive)
+(defun zeek-format-buffer ()
+  "Format the current buffer using `zeek-script format'."
+  (interactive)
+  (when zeek-script
     (let (;; Count non-whitespace characters up to point. Formatting only
           ;; modifies whitespace, so we can use this count to place point at the
           ;; "same" location after formatting.
@@ -157,27 +159,30 @@ upon return, but the keep-errbuf argument, when t, preserves it."
       ;; Point is now correct, but we may have scrolled the window.  Re-scroll
       ;; so point is back on the same number of lines down from the top of the
       ;; window that it was before formatting.
-      (recenter-top-bottom toplines)))
+      (recenter-top-bottom toplines))))
 
-  ;;;###autoload
-  (defun zeek-parse-buffer ()
-    "Report parse tree via `zeek-script parse' in a new buffer.
+;;;###autoload
+(defun zeek-parse-buffer ()
+  "Report parse tree via `zeek-script parse' in a new buffer.
 
 Potential parsing problems appear in the echo area and are
 reflected in the parse tree."
-    (interactive)
+  (interactive)
+  (when zeek-script
     (let ((outbuf "*zeek-script parse tree*"))
       (zeek--command-on-buffer (zeek--script-cmd "parse" "-") outbuf)
       (switch-to-buffer-other-window outbuf)
-      (special-mode)))
+      (special-mode))))
 
-  ;;;###autoload
-  (defun zeek-format-before-save ()
-    "Add this to .emacs to run zeek-format on the current buffer when saving:
+;;;###autoload
+(defun zeek-format-before-save ()
+  "Add this to .emacs to run zeek-format on the current buffer when saving:
 \(add-hook \\='before-save-hook #\\='zeek-format-before-save)"
-    (interactive)
-    (when (eq major-mode 'zeek-mode) (zeek-format-buffer)))
+  (interactive)
+  (when zeek-script
+    (when (eq major-mode 'zeek-mode) (zeek-format-buffer))))
 
+(when zeek-script
   (add-hook 'zeek-mode-hook
             (lambda ()
               (local-set-key (kbd "C-c C-f") #'zeek-format-buffer)
