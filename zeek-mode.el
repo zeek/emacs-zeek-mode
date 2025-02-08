@@ -1,4 +1,27 @@
-;; An Emacs mode for the Zeek scripting language.
+;;; zeek-mode.el --- A major-mode for the Zeek scripting language -*- lexical-binding: t -*-
+
+;; Copyright (c) 2022-now, The Regents of the University of California.
+;; Author: Christian Kreibich (christian@zeek.org)
+;; URL: https://github.com/zeek/emacs-zeek-mode
+;; Package-Requires: ((emacs "24.4"))
+;; Version: 1.0.0-11
+
+;;; Commentary:
+;; This is an Emacs major-mode for Zeek scripts.  Supported features:
+;;
+;; - Syntax highlighting
+;;
+;; - Script formatting and parsing via zeekscript, when available: C-c C-f
+;;   formats the current buffer; C-c C-p parses it and renders the parse tree
+;;   into a new buffer.
+;;
+;; - Whitespace configuration: TAB always inserts tab character.  The mode also
+;;   highlights trailing whitespace as well as spaces used after tabs.
+;;
+;; Automatic indentation isn't yet supported, but use of 'zeek-script'
+;; for formatting approximates it.
+
+;;; Code:
 
 (defvar zeek-mode-hook nil)
 
@@ -47,7 +70,7 @@
 	      "\\>") (0 font-lock-function-name-face))
     ("\\(&[a-zA-Z_0-9]+\\)" (0 font-lock-builtin-face))
     )
-  "Keyword highlighting spec for Zeek mode")
+  "Keyword highlighting spec for Zeek mode.")
 
 (font-lock-add-keywords 'zeek-mode zeek-mode-keywords)
 
@@ -70,7 +93,7 @@
     (modify-syntax-entry ?\n ">" zeek-mode-syntax-table)
 
     zeek-mode-syntax-table)
-  "Syntax table for Zeek mode")
+  "Syntax table for Zeek mode.")
 
 ;; ---- Zeek script formatting and parsing via "zeek-script" -----------
 ;;
@@ -79,10 +102,10 @@
 
 (defvar zeek-script
   (executable-find "zeek-script")
-  "Full path to the zeek-script command.
+  "Full path to the `zeek-script' command.
 
 If nil, please install the zeekscript Python package and ensure its
-zeek-script command is in your PATH.")
+`zeek-script' command is in your PATH.")
 
 (when zeek-script
 
@@ -181,7 +204,7 @@ reflected in the parse tree."
   "The current version of Zeek mode.")
 
 (defun zeek-mode ()
-  "Major mode for editing Zeek scripts"
+  "Major mode for editing Zeek scripts."
   (interactive)
   (kill-all-local-variables)
   (set-syntax-table zeek-mode-syntax-table)
@@ -198,3 +221,7 @@ reflected in the parse tree."
   (run-hooks 'zeek-mode-hook))
 
 (provide 'zeek-mode)
+
+(provide 'zeek-mode)
+
+;;; zeek-mode.el ends here
