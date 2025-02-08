@@ -102,11 +102,11 @@ If nil, please install the zeekscript Python package and ensure its
 
 (when zeek-script
 
-  (defun zeek-script-cmd (&rest args)
+  (defun zeek--script-cmd (&rest args)
     "Returns full zeek-script invocation string for the given arguments."
     (mapconcat 'identity (cons zeek-script args) " "))
 
-  (defun zeek-command-on-buffer (command destination &optional replace keep-errbuf)
+  (defun zeek--command-on-buffer (command destination &optional replace keep-errbuf)
     "Run a command on the buffer and report errors to echo area.
 
 This is a wrapper around shell-command-on-region, with a subset
@@ -143,7 +143,7 @@ upon return, but the keep-errbuf argument, when t, preserves it."
           (toplines (count-lines (window-start) (point))))
 
       ;; Format the whole buffer, replacing its content.
-      (zeek-command-on-buffer (zeek-script-cmd "format" "-") (current-buffer) t t)
+      (zeek--command-on-buffer (zeek--script-cmd "format" "-") (current-buffer) t t)
 
       ;; Put point back to "same" spot: search for "numchars" instances of
       ;; optional whitespace, a single non-whitespace, plus optional
@@ -165,7 +165,7 @@ Potential parsing problems appear in the echo area and are
 reflected in the parse tree."
     (interactive)
     (let ((outbuf "*zeek-script parse tree*"))
-      (zeek-command-on-buffer (zeek-script-cmd "parse" "-") outbuf)
+      (zeek--command-on-buffer (zeek--script-cmd "parse" "-") outbuf)
       (switch-to-buffer-other-window outbuf)
       (special-mode)))
 
