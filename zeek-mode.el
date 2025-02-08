@@ -220,6 +220,4 @@ reflected in the parse tree."
 
 (provide 'zeek-mode)
 
-(provide 'zeek-mode)
-
 ;;; zeek-mode.el ends here
