@@ -28,12 +28,6 @@
 ;; For access to string-trim below.
 (eval-when-compile (require 'subr-x))
 
-;; (defvar zeek-mode-map
-;;   (let ((zeek-mode-map (make-keymap)))
-;;     (define-key zeek-mode-map "\C-j" 'newline-and-indent)
-;;     zeek-mode-map)
-;;   "Keymap for ZEEK major mode")
-
 (add-to-list 'auto-mode-alist '("\\.bro\\'" . zeek-mode))
 (add-to-list 'auto-mode-alist '("\\.zeek\\'" . zeek-mode))
 (add-to-list 'interpreter-mode-alist '("zeek" . zeek-mode))
