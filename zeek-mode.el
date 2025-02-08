@@ -68,8 +68,7 @@
           (regexp-opt '("day" "days" "hr" "hrs" "min" "mins" "sec" "secs"
                 "msec" "msecs" "usec" "usecs") t)
           "\\>") (0 font-lock-function-name-face))
-    ("\\(&[a-zA-Z_0-9]+\\)" (0 font-lock-builtin-face))
-    )
+    ("\\(&[a-zA-Z_0-9]+\\)" (0 font-lock-builtin-face)))
   "Keyword highlighting spec for Zeek mode.")
 
 (font-lock-add-keywords 'zeek-mode zeek-mode-keywords)
@@ -196,8 +195,7 @@ reflected in the parse tree."
 (add-hook 'zeek-mode-hook
           (lambda ()
             (setq whitespace-space-after-tab-regexp '("^\t*\\( +\\)"))
-            (setq whitespace-style '(face space-after-tab))
-            ))
+            (setq whitespace-style '(face space-after-tab))))
 
 ;; The update-changes script maintains this version number; do not edit.
 (defconst zeek-mode-version "1.0.0-11"
