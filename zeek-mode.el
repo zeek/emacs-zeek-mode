@@ -185,6 +185,7 @@ reflected in the parse tree."
 ;; We add whitespace minor mode by default and configure it to only show us
 ;; spaces after tabs or right from the start of a line. The face is called
 ;; whitespace-space-after-tab.
+(require 'whitespace)
 (add-hook 'zeek-mode-hook 'whitespace-mode)
 (add-hook 'zeek-mode-hook
           (lambda ()
