@@ -47,27 +47,27 @@
 (defvar zeek-mode-keywords
   `(("\\(@[^#\n]+\\)" (0 font-lock-preprocessor-face t))
     (,(concat "\\<"
-	      (regexp-opt '("const" "option" "redef") t)
-	      "\\>") (0 font-lock-constant-face))
+          (regexp-opt '("const" "option" "redef") t)
+          "\\>") (0 font-lock-constant-face))
     (,(concat "\\<"
-	      (regexp-opt '("addr" "any" "bool" "count" "counter" "double"
+          (regexp-opt '("addr" "any" "bool" "count" "counter" "double"
                             "enum" "file" "int" "interval" "list" "net"
                             "opaque" "paraglob" "pattern" "port" "record"
                             "set" "string" "subnet" "table" "timer" "time"
                             "union" "vector") t)
-	      "\\>") (0 font-lock-type-face))
+          "\\>") (0 font-lock-type-face))
     (,(concat "\\<"
-	      (regexp-opt '("add" "alarm" "break" "case" "default"
-			    "delete" "else" "event" "export" "fmt" "for"
-			    "function" "global" "global_attr" "hook" "if" "in"
-			    "local" "match" "module" "next" "of" "print"
-			    "return" "schedule" "switch" "this" "type"
-			    "using" "when") t)
-	      "\\>") (0 font-lock-keyword-face))
+          (regexp-opt '("add" "alarm" "break" "case" "default"
+                "delete" "else" "event" "export" "fmt" "for"
+                "function" "global" "global_attr" "hook" "if" "in"
+                "local" "match" "module" "next" "of" "print"
+                "return" "schedule" "switch" "this" "type"
+                "using" "when") t)
+          "\\>") (0 font-lock-keyword-face))
     (,(concat "\\<"
-	      (regexp-opt '("day" "days" "hr" "hrs" "min" "mins" "sec" "secs"
-			    "msec" "msecs" "usec" "usecs") t)
-	      "\\>") (0 font-lock-function-name-face))
+          (regexp-opt '("day" "days" "hr" "hrs" "min" "mins" "sec" "secs"
+                "msec" "msecs" "usec" "usecs") t)
+          "\\>") (0 font-lock-function-name-face))
     ("\\(&[a-zA-Z_0-9]+\\)" (0 font-lock-builtin-face))
     )
   "Keyword highlighting spec for Zeek mode.")
