@@ -1,3 +1,7 @@
+1.0.0-25 | 2025-03-17 18:47:46 -0700
+
+  * Fix update-changes sed commands to work on macOS too (Tim Wojtulewicz, Corelight)
+
 1.0.0-23 | 2025-02-08 13:20:13 -0700
 
   * Wrap function bodies in `when` conditions (Tim Wojtulewicz, Corelight)

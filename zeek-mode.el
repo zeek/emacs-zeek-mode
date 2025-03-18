@@ -4,7 +4,7 @@
 ;; Author: Christian Kreibich (christian@zeek.org)
 ;; URL: https://github.com/zeek/emacs-zeek-mode
 ;; Package-Requires: ((emacs "24.4"))
-;; Version: 1.0.0-11
+;; Version 1.0.0-25
 
 ;;; Commentary:
 ;; This is an Emacs major-mode for Zeek scripts.  Supported features:
@@ -201,7 +201,7 @@ reflected in the parse tree."
             (setq whitespace-style '(face space-after-tab))))
 
 ;; The update-changes script maintains this version number; do not edit.
-(defconst zeek-mode-version "1.0.0-11"
+(defconst zeek-mode-version "1.0.0-25"
   "The current version of Zeek mode.")
 
 (defun zeek-mode ()
