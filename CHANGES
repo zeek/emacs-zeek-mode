@@ -1,3 +1,41 @@
+1.0.0-23 | 2025-02-08 13:20:13 -0700
+
+  * Wrap function bodies in `when` conditions (Tim Wojtulewicz, Corelight)
+
+    This reverses checking for when before defining the functions to
+    instead putting the when condition inside the function body. I
+    grepped around the el files that come with emacs and this appears
+    to be the standard form.
+
+    This also fixes some of the function comments to include the
+    argument names like they should.
+
+  * Add autoload and sharp-quote hints for the byte-compiler (Tim Wojtulewicz, Corelight)
+
+  * Mark a couple of functions as private (Tim Wojtulewicz, Corelight)
+
+  * Remove undefined c-basic-offset (Tim Wojtulewicz, Corelight)
+
+    We're not requiring c-mode to be loaded, so this variable won't be
+    defined. We don't want to load all of c-mode just for this one
+    variable either.
+
+  * Require whitespace package for whitespace-mode (Tim Wojtulewicz, Corelight)
+
+  * Fix formatting of apostrophes in comments (Tim Wojtulewicz, Corelight)
+
+  * Remove commented-out keymapping (Tim Wojtulewicz, Corelight)
+
+  * Update license file to match the main Zeek file (Tim Wojtulewicz, Corelight)
+
+  * Remove extra 'provide' statement (Tim Wojtulewicz, Corelight)
+
+  * Closing parens shouldn't be on lines alone (emacs lisp style-guide) (Tim Wojtulewicz, Corelight)
+
+  * Use spaces for all indentation (emacs lisp style-guide) (Tim Wojtulewicz, Corelight)
+
+  * Initial pass over docs with 'checkdoc' (Tim Wojtulewicz, Corelight)
+
 1.0.0-11 | 2022-05-31 11:02:32 -0700
 
   * Switch font for highlighting directives to font-lock-preprocessor-face (Christian Kreibich, Corelight)
