@@ -247,20 +247,15 @@ reflected in the parse tree."
 (defconst zeek-mode-version "1.0.0-25"
   "The current version of Zeek mode.")
 
-(defun zeek-mode ()
+;;;###autoload
+(define-derived-mode zeek-mode prog-mode "Zeek"
   "Major mode for editing Zeek scripts."
-  (interactive)
-  (kill-all-local-variables)
-  (set-syntax-table zeek-mode-syntax-table)
-  (set (make-local-variable 'font-lock-defaults) '(zeek-mode-keywords))
-  (set (make-local-variable 'comment-start) "#")
-
-  (setq indent-tabs-mode t)
-  (setq tab-width 8)
+  :syntax-table zeek-mode-syntax-table
+  (setq-local comment-start "#")
+  (setq-local indent-tabs-mode t)
+  (setq-local tab-width 8)
   (local-set-key (kbd "TAB") 'self-insert-command)
-
-  (setq major-mode 'zeek-mode)
-  (setq mode-name "Zeek")
+  (zeek--setup-font-lock)
   (run-hooks 'zeek-mode-hook))
 
 ;; Map the file extensions over to zeek-mode.
