@@ -1,3 +1,13 @@
+1.0.0-29 | 2025-03-19 09:15:13 -0700
+
+  * Use define-derived-mode to inherit from prog-mode (Tim Wojtulewicz, Corelight)
+
+  * Modernize the way font-lock definitions are setup (Tim Wojtulewicz, Corelight)
+
+  * Move file extension mapping until after mode is defined (Tim Wojtulewicz, Corelight)
+
+  * Fix errant whitespace (Tim Wojtulewicz, Corelight)
+
 1.0.0-25 | 2025-03-17 18:47:46 -0700
 
   * Fix update-changes sed commands to work on macOS too (Tim Wojtulewicz, Corelight)
