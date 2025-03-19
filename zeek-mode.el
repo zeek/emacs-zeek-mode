@@ -131,7 +131,7 @@ causes the buffer to be removed and replaced if it already exists."
           (message (string-trim (thing-at-point 'line))))
         (unless keep-errbuf (kill-buffer errbuf))))))
 
-  ;;;###autoload
+;;;###autoload
 (defun zeek-format-buffer ()
   "Format the current buffer using `zeek-script format'."
   (interactive)
