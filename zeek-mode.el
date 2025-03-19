@@ -30,34 +30,85 @@
 
 ;; ---- Syntax Highlighting --------------------------------------------
 
-(defvar zeek-mode-keywords
-  `(("\\(@[^#\n]+\\)" (0 font-lock-preprocessor-face t))
-    (,(concat "\\<"
-          (regexp-opt '("const" "option" "redef") t)
-          "\\>") (0 font-lock-constant-face))
-    (,(concat "\\<"
-          (regexp-opt '("addr" "any" "bool" "count" "counter" "double"
-                            "enum" "file" "int" "interval" "list" "net"
-                            "opaque" "paraglob" "pattern" "port" "record"
-                            "set" "string" "subnet" "table" "timer" "time"
-                            "union" "vector") t)
-          "\\>") (0 font-lock-type-face))
-    (,(concat "\\<"
-          (regexp-opt '("add" "alarm" "break" "case" "default"
-                "delete" "else" "event" "export" "fmt" "for"
-                "function" "global" "global_attr" "hook" "if" "in"
-                "local" "match" "module" "next" "of" "print"
-                "return" "schedule" "switch" "this" "type"
-                "using" "when") t)
-          "\\>") (0 font-lock-keyword-face))
-    (,(concat "\\<"
-          (regexp-opt '("day" "days" "hr" "hrs" "min" "mins" "sec" "secs"
-                "msec" "msecs" "usec" "usecs") t)
-          "\\>") (0 font-lock-function-name-face))
-    ("\\(&[a-zA-Z_0-9]+\\)" (0 font-lock-builtin-face)))
-  "Keyword highlighting spec for Zeek mode.")
+(defconst zeek--keywords-constants
+  '("const" "option" "redef"))
 
-(font-lock-add-keywords 'zeek-mode zeek-mode-keywords)
+(defconst zeek--font-lock-constants
+  (list
+   (rx-to-string
+    `(: symbol-start
+        (or ,@zeek--keywords-constants)
+        symbol-end))
+   '(0 font-lock-constant-face))
+  "Zeek constant keywords.")
+
+(defconst zeek--keywords-types
+  '("addr" "any" "bool" "count" "counter" "double" "enum" "file" "int" "interval"
+    "list" "net" "opaque" "paraglob" "pattern" "port" "record" "set" "string"
+    "subnet" "table" "timer" "time" "union" "vector"))
+
+(defconst zeek--font-lock-types
+  (list
+   (rx-to-string
+    `(: symbol-start
+        (or ,@zeek--keywords-types)
+        symbol-end))
+   '(0 font-lock-type-face))
+  "Zeek constant keywords.")
+
+(defconst zeek--keywords-keywords
+  '("add" "alarm" "break" "case" "default" "delete" "else" "event" "export"
+    "fmt" "for" "function" "global" "global_attr" "hook" "if" "in" "local"
+    "match" "module" "next" "of" "print" "return" "schedule" "switch" "this"
+    "type" "using" "when"))
+
+(defconst zeek--font-lock-keywords
+  (list
+   (rx-to-string
+    `(: symbol-start
+        (or ,@zeek--keywords-keywords)
+        symbol-end))
+   '(0 font-lock-keyword-face))
+  "Zeek constant keywords.")
+
+(defconst zeek--keywords-functions
+  '("day" "days" "hr" "hrs" "min" "mins" "sec" "secs" "msec" "msecs" "usec" "usecs"))
+
+(defconst zeek--font-lock-functions
+  (list
+   (rx-to-string
+    `(: symbol-start
+        (or ,@zeek--keywords-functions)
+        symbol-end))
+   '(0 font-lock-function-name-face))
+  "Zeek constant keywords.")
+
+(defconst zeek--font-lock-preprocessor
+  (list
+   (rx-to-string
+    `(: "@" (1+ (any "a-z" "A-Z"))))
+   '(0 font-lock-preprocessor-face))
+  "Zeek for script preprocessor commands starting with @.")
+
+(defconst zeek--font-lock-builtin
+  (list
+   (rx-to-string
+    `(: "&" (1+ (any "a-z" "A-Z" "0-9"))))
+   '(0 font-lock-builtin-face))
+  "Zeek face for attributes starting with &.")
+
+(defconst zeek-font-lock-defaults
+  (list zeek--font-lock-constants
+        zeek--font-lock-keywords
+        zeek--font-lock-types
+        zeek--font-lock-functions
+        zeek--font-lock-preprocessor
+        zeek--font-lock-builtin)
+  "Zeek font lock definitons.")
+
+(defun zeek--setup-font-lock ()
+  "Set up `font-lock-defaults' for `zeek-mode'."
+  (setq font-lock-defaults '(zeek-font-lock-defaults)))
 
 ;; ---- The Syntax Table -----------------------------------------------
 
