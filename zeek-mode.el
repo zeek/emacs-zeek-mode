@@ -28,14 +28,6 @@
 ;; For access to string-trim below.
 (eval-when-compile (require 'subr-x))
 
-(add-to-list 'auto-mode-alist '("\\.bro\\'" . zeek-mode))
-(add-to-list 'auto-mode-alist '("\\.zeek\\'" . zeek-mode))
-(add-to-list 'interpreter-mode-alist '("zeek" . zeek-mode))
-
-;; Crude way to match "env (args) zeek (args) --", i.e. the construct
-;; to allow Zeek use in a shebang line.
-(add-to-list 'magic-mode-alist '("#![ \t]*.*/bin/env.+[ \t]zeek.+--[ \t]*$" . zeek-mode))
-
 ;; ---- Syntax Highlighting --------------------------------------------
 
 (defvar zeek-mode-keywords
@@ -219,6 +211,15 @@ reflected in the parse tree."
   (setq major-mode 'zeek-mode)
   (setq mode-name "Zeek")
   (run-hooks 'zeek-mode-hook))
+
+;; Map the file extensions over to zeek-mode.
+(add-to-list 'auto-mode-alist '("\\.bro\\'" . zeek-mode))
+(add-to-list 'auto-mode-alist '("\\.zeek\\'" . zeek-mode))
+(add-to-list 'interpreter-mode-alist '("zeek" . zeek-mode))
+
+;; Crude way to match "env (args) zeek (args) --", i.e. the construct
+;; to allow Zeek use in a shebang line.
+(add-to-list 'magic-mode-alist '("#![ \t]*.*/bin/env.+[ \t]zeek.+--[ \t]*$" . zeek-mode))
 
 (provide 'zeek-mode)
 
