@@ -57,7 +57,7 @@
   "Zeek constant keywords.")
 
 (defconst zeek--keywords-keywords
-  '("add" "alarm" "break" "case" "default" "delete" "else" "event" "export"
+  '("add" "alarm" "assert" "break" "case" "default" "delete" "else" "event" "export"
     "fmt" "for" "function" "global" "global_attr" "hook" "if" "in" "local"
     "match" "module" "next" "of" "print" "return" "schedule" "switch" "this"
     "type" "using" "when"))
